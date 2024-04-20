@@ -29,7 +29,7 @@ public class AccountHelperImpl implements AccountHelper {
     public AccountBalanceOutput updateAccountBalance(AccountBalanceUpdateInput accountBalanceUpdateInput) {
         Optional<Account> optionalFromAccount = accountRepository.findAccountByIdAndStatus(accountBalanceUpdateInput.fromAccountId(), Status.ACTIVE);
         if (optionalFromAccount.isEmpty()) {
-            return AccountBalanceOutput.createFailedAccount(AccountBalanceOutputStatus.NOT_FOUND);
+            return AccountBalanceOutput.createFailedAccount(AccountBalanceOutputStatus.FAILED);
         }
         Optional<Account> optionalToAccount = accountRepository.findAccountByIdAndStatus(accountBalanceUpdateInput.toAccountId(), Status.ACTIVE);
         if (optionalToAccount.isEmpty()) {
@@ -49,7 +49,7 @@ public class AccountHelperImpl implements AccountHelper {
     public AccountBalanceOutput getAccountBalance(String accountId) {
         Optional<Account> optionalAccount = accountRepository.findAccountByIdAndStatus(accountId, Status.ACTIVE);
         if (optionalAccount.isEmpty()) {
-            return AccountBalanceOutput.createFailedAccount(AccountBalanceOutputStatus.NOT_FOUND);
+            return AccountBalanceOutput.createFailedAccount(AccountBalanceOutputStatus.FAILED);
         }
         Account account = optionalAccount.get();
         return accountTransformer.convertAccountToOutput(account);
