@@ -2,6 +2,7 @@ package org.dbs.ledger.configuration;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
+import io.mongock.runner.springboot.EnableMongock;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
@@ -29,6 +30,7 @@ import java.util.List;
 @Configuration
 @EnableWebMvc
 @EnableMongoAuditing
+@EnableMongock
 public class ApplicationConfiguration {
     @Bean
     @Primary
