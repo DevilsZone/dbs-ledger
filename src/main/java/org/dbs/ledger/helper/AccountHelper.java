@@ -1,7 +1,10 @@
 package org.dbs.ledger.helper;
 
 import org.dbs.ledger.model.input.AccountBalanceUpdateInput;
+import org.dbs.ledger.model.output.AccountBalanceOutput;
 
 public interface AccountHelper {
-    void updateAccountBalance(AccountBalanceUpdateInput accountBalanceUpdateInput);
+    AccountBalanceOutput updateAccountBalance(AccountBalanceUpdateInput accountBalanceUpdateInput);
+
+    AccountBalanceOutput getAccountBalance(String accountId);
 }
