@@ -1,10 +1,7 @@
 package org.dbs.ledger.model;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
 import org.dbs.ledger.enums.Status;
 import org.dbs.ledger.util.MongoConstants;
 import org.springframework.data.annotation.*;
@@ -14,8 +11,6 @@ import java.util.Date;
 
 @Getter
 @Setter
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-@SuperBuilder
 abstract class BaseEntity {
     @Id
     private String mongoId;

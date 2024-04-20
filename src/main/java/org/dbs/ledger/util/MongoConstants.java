@@ -15,6 +15,7 @@ public final class MongoConstants {
     public static final String CREATED_BY = "_createdBy";
 
     public static final String UPDATED_BY = "_updatedBy";
+
     public static final String ACCOUNT_ENTRY_TABLE_NAME = "account-entry";
 
     public static final String CURRENCY_TABLE_NAME = "currency";
@@ -22,6 +23,10 @@ public final class MongoConstants {
     public static final String ACCOUNT_TABLE_NAME = "account";
 
     public static final String USER_TABLE_NAME = "user";
+
+    public static final String MOBILE = "mobile";
+
+    public static final String EMAIL = "email";
 
     private MongoConstants() {}
 }
