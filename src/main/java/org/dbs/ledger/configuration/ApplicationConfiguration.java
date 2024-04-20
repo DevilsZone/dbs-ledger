@@ -2,6 +2,13 @@ package org.dbs.ledger.configuration;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
+import managers.jwt.AccessTokenAlgorithm;
+import managers.jwt.configurations.JwtManagerConfiguration;
+import managers.jwt.impl.JwtAccessTokenManager;
+import managers.jwt.impl.RsaAccessTokenAlgorithmImpl;
+import org.dbs.ledger.configuration.contexts.RequestContext;
+import org.dbs.ledger.configuration.contexts.UserContext;
+import org.dbs.ledger.transformer.JwtTransformer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -26,5 +33,25 @@ public class ApplicationConfiguration {
     @Bean
     MongoTransactionManager transactionManager(MongoDatabaseFactory mongoDatabaseFactory) {
         return new MongoTransactionManager(mongoDatabaseFactory);
+    }
+
+    @Bean
+    public RequestContext getRequestContext() {
+        return new RequestContext();
+    }
+
+    @Bean
+    public UserContext getUserContext() {
+        return new UserContext();
+    }
+
+    @Bean
+    public JwtAccessTokenManager getJwtTokenManager(JwtConfiguration jwtConfiguration, JwtTransformer jwtTransformer) {
+        AccessTokenAlgorithm accessTokenAlgorithm = new RsaAccessTokenAlgorithmImpl(
+                jwtConfiguration.getRsaPublicKey(),
+                jwtConfiguration.getRsaPrivateKey()
+        );
+        JwtManagerConfiguration jwtManagerConfiguration = jwtTransformer.convertJwtConfigurationToJwtManagerConfiguration(jwtConfiguration);
+        return new JwtAccessTokenManager(accessTokenAlgorithm, jwtManagerConfiguration);
     }
 }
