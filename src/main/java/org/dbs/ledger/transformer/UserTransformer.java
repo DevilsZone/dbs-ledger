@@ -7,7 +7,7 @@ import org.dbs.ledger.dto.request.SignupRequest;
 import org.dbs.ledger.dto.request.common.EmailRequest;
 import org.dbs.ledger.dto.request.common.MobileRequest;
 import org.dbs.ledger.dto.response.SignInResponse;
-import org.dbs.ledger.dto.response.UserResponse;
+import org.dbs.ledger.dto.response.AccountResponse;
 import org.dbs.ledger.dto.response.common.EmailResponse;
 import org.dbs.ledger.dto.response.common.MobileResponse;
 import org.dbs.ledger.model.User;
@@ -59,8 +59,8 @@ public class UserTransformer {
         return SignInResponse.builder().accessToken(token.getToken()).build();
     }
 
-    public UserResponse convertModelToResponse(User user) {
-        return UserResponse
+    public AccountResponse convertModelToResponse(User user) {
+        return AccountResponse
                 .builder()
                 .userId(user.getId())
                 .email(convertEmailToResponse(user.getEmail()))

@@ -3,6 +3,8 @@ package org.dbs.ledger.dto.request;
 import lombok.*;
 import org.dbs.ledger.dto.request.common.EmailRequest;
 import org.dbs.ledger.dto.request.common.MobileRequest;
+import org.dbs.ledger.enums.AccountType;
+import org.dbs.ledger.enums.CurrencyName;
 
 @Getter
 @Setter
@@ -19,4 +21,8 @@ public class SignupRequest {
     private MobileRequest mobile;
 
     private String password;
+
+    private AccountType accountType;
+
+    private CurrencyName currencyName;
 }

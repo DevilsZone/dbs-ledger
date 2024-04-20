@@ -4,14 +4,14 @@ import org.dbs.ledger.dto.request.SignupRequest;
 import org.dbs.ledger.dto.request.user.EmailSignInRequest;
 import org.dbs.ledger.dto.request.user.MobileSignInRequest;
 import org.dbs.ledger.dto.response.SignInResponse;
-import org.dbs.ledger.dto.response.UserResponse;
+import org.dbs.ledger.dto.response.AccountResponse;
 
-public interface UserService {
+public interface AccountService {
     SignInResponse signIn(MobileSignInRequest mobileSignInRequest);
 
     SignInResponse signIn(EmailSignInRequest emailSignInRequest);
 
-    UserResponse getUser(String userId);
+    AccountResponse getAccount(String userId);
 
-    UserResponse signupUser(SignupRequest signupRequest);
+    AccountResponse signupAccount(SignupRequest signupRequest);
 }

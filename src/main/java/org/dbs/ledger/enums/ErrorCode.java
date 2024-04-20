@@ -18,7 +18,8 @@ public enum ErrorCode {
     TRANSFER_FAILED("008", "Account entry creation failed"),
     USER_NOT_FOUND("009", "User not found"),
     USER_ALREADY_EXIST("010", "User already exists"),
-    INVALID_CREDENTIALS("011", "Invalid Credentials");
+    INVALID_CREDENTIALS("011", "Invalid Credentials"),
+    CURRENCY_NOT_ACTIVE("012", "Currency transaction has been disabled");
 
     private final String code;
 

@@ -9,7 +9,7 @@ import org.dbs.ledger.dto.response.common.MobileResponse;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-public class UserResponse {
+public class AccountResponse {
     private String userId;
 
     private String name;
@@ -19,4 +19,6 @@ public class UserResponse {
     private EmailResponse email;
 
     private MobileResponse mobile;
+
+    private Double accountBalance;
 }
