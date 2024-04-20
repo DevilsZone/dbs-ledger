@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.dbs.ledger.enums.CurrencyName;
+import org.dbs.ledger.enums.TransactionType;
 
 @Getter
 @Setter
@@ -23,4 +24,7 @@ public class TransactionRequest {
 
     @NotNull
     private CurrencyName currencyName;
+
+    @NotNull
+    private TransactionType transactionType;
 }

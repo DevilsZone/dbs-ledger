@@ -15,6 +15,7 @@ public class TransactionTransformer {
         return new AccountBalanceUpdateInput(
                 transactionRequest.getFromAccountId(),
                 transactionRequest.getToAccountId(),
+                transactionRequest.getTransactionType(),
                 transactionRequest.getAmount()
         );
     }
@@ -23,6 +24,7 @@ public class TransactionTransformer {
         return new AccountEntryInput(
                 transactionRequest.getFromAccountId(),
                 transactionRequest.getToAccountId(),
+                transactionRequest.getTransactionType(),
                 transactionRequest.getAmount()
         );
     }

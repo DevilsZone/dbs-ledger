@@ -10,7 +10,7 @@ import org.dbs.ledger.model.output.AccountBalanceOutput;
 public class AccountTransformer {
 
     public AccountBalanceOutput convertAccountToOutput(Account account) {
-        return new AccountBalanceOutput(AccountBalanceOutputStatus.FOUND, convertAccountToAccountBalance(account));
+        return new AccountBalanceOutput(AccountBalanceOutputStatus.SUCCESS, convertAccountToAccountBalance(account));
     }
 
     public AccountBalance convertAccountToAccountBalance(Account account) {

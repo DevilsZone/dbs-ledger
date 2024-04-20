@@ -3,6 +3,7 @@ package org.dbs.ledger.helper.impl;
 import org.dbs.ledger.annotation.Helper;
 import org.dbs.ledger.enums.AccountBalanceOutputStatus;
 import org.dbs.ledger.enums.Status;
+import org.dbs.ledger.enums.TransactionType;
 import org.dbs.ledger.helper.AccountHelper;
 import org.dbs.ledger.model.Account;
 import org.dbs.ledger.model.input.AccountBalanceUpdateInput;
@@ -31,16 +32,23 @@ public class AccountHelperImpl implements AccountHelper {
         if (optionalFromAccount.isEmpty()) {
             return AccountBalanceOutput.createFailedAccount(AccountBalanceOutputStatus.FAILED);
         }
-        Optional<Account> optionalToAccount = accountRepository.findAccountByIdAndStatus(accountBalanceUpdateInput.toAccountId(), Status.ACTIVE);
-        if (optionalToAccount.isEmpty()) {
-            return AccountBalanceOutput.createFailedAccount(AccountBalanceOutputStatus.FAILED);
-        }
-        Account toAccount = optionalToAccount.get();
         Account fromAccount = optionalFromAccount.get();
-        accountTransformer.updateAccountBalance(toAccount, accountBalanceUpdateInput.transferredAmount());
-        accountTransformer.updateAccountBalance(fromAccount, accountBalanceUpdateInput.transferredAmount()*-1);
+        if (fromAccount.getAccountBalance() < accountBalanceUpdateInput.transferredAmount()) {
+            return AccountBalanceOutput.createFailedAccount(AccountBalanceOutputStatus.IN_VALID);
+        }
+        accountTransformer.updateAccountBalance(fromAccount, accountBalanceUpdateInput.transferredAmount());
 
-        accountRepository.save(toAccount);
+        if (accountBalanceUpdateInput.transactionType().equals(TransactionType.TRANSFER)) {
+            Optional<Account> optionalToAccount = accountRepository.findAccountByIdAndStatus(accountBalanceUpdateInput.toAccountId(), Status.ACTIVE);
+            if (optionalToAccount.isEmpty()) {
+                return AccountBalanceOutput.createFailedAccount(AccountBalanceOutputStatus.FAILED);
+            }
+            Account toAccount = optionalToAccount.get();
+
+            accountTransformer.updateAccountBalance(toAccount, accountBalanceUpdateInput.transferredAmount());
+            accountRepository.save(toAccount);
+        }
+
         Account updatedAccount = accountRepository.save(fromAccount);
         return accountTransformer.convertAccountToOutput(updatedAccount);
     }

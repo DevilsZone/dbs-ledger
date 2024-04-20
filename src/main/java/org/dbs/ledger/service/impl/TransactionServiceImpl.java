@@ -37,18 +37,6 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     @Transactional
     public TransactionResponse transferFunds(TransactionRequest transactionRequest) {
-        AccountBalanceOutput fromAccountBalance = accountHelper.getAccountBalance(transactionRequest.getFromAccountId());
-        AccountBalanceOutput toAccountBalance = accountHelper.getAccountBalance(transactionRequest.getToAccountId());
-        if (!fromAccountBalance.accountBalanceOutputStatus().equals(AccountBalanceOutputStatus.SUCCESS)) {
-            throw new RestException(HttpStatus.UNAUTHORIZED, ErrorResponse.from(ErrorCode.ACCOUNT_NOT_FOUND));
-        }
-        if (!toAccountBalance.accountBalanceOutputStatus().equals(AccountBalanceOutputStatus.SUCCESS)) {
-            throw new RestException(HttpStatus.UNAUTHORIZED, ErrorResponse.from(ErrorCode.ACCOUNT_NOT_FOUND));
-        }
-        if (fromAccountBalance.accountBalance().availableBalance() < transactionRequest.getAmount()) {
-            throw new RestException(HttpStatus.BAD_REQUEST, ErrorResponse.from(ErrorCode.BALANCE_NOT_AVAILABLE));
-        }
-
         AccountBalanceOutput accountBalanceOutput = accountHelper.updateAccountBalance(transactionTransformer.convertTransactionRequestToAccountInput(transactionRequest));
         if (!accountBalanceOutput.accountBalanceOutputStatus().equals(AccountBalanceOutputStatus.SUCCESS)) {
             throw new RestException(HttpStatus.INTERNAL_SERVER_ERROR, ErrorResponse.from(ErrorCode.INTERNAL_SERVER_ERROR));

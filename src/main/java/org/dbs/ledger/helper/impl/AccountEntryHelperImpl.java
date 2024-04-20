@@ -2,6 +2,7 @@ package org.dbs.ledger.helper.impl;
 
 import org.dbs.ledger.annotation.Helper;
 import org.dbs.ledger.enums.Status;
+import org.dbs.ledger.enums.TransactionType;
 import org.dbs.ledger.enums.TransferType;
 import org.dbs.ledger.helper.AccountEntryHelper;
 import org.dbs.ledger.helper.IdHelper;
@@ -13,6 +14,7 @@ import org.dbs.ledger.transformer.AccountEntryTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Helper
@@ -36,10 +38,15 @@ public class AccountEntryHelperImpl implements AccountEntryHelper {
         accountEntry.setId(idHelper.getNextId());
         accountEntry.setStatus(Status.ACTIVE);
 
-        AccountEntry contraAccountEntry = accountEntryTransformer.convertAccountEntryToContraEntry(accountEntry);
+        List<AccountEntry> accountEntries = new ArrayList<>();
+        accountEntries.add(accountEntry);
 
+        if (accountEntryInput.transactionType().equals(TransactionType.TRANSFER)) {
+            AccountEntry contraAccountEntry = accountEntryTransformer.convertAccountEntryToContraEntry(accountEntry);
+            accountEntries.add(contraAccountEntry);
+        }
         try {
-            accountEntryRepository.saveAll(List.of(accountEntry, contraAccountEntry));
+            accountEntryRepository.saveAll(accountEntries);
             return accountEntryTransformer.convertModelToSuccessOutput(accountEntry);
         } catch (DuplicateKeyException duplicateKeyException) {
             return AccountEntryOutput.createFailedEntryAccountOutput();
