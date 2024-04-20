@@ -10,18 +10,18 @@ import org.dbs.ledger.model.output.AccountEntryOutput;
 
 @Transformer
 public class TransactionTransformer {
-    public AccountBalanceUpdateInput convertTransactionRequestToAccountInput(TransactionRequest transactionRequest) {
+    public AccountBalanceUpdateInput convertTransactionRequestToAccountInput(TransactionRequest transactionRequest, String fromAccountId) {
         return new AccountBalanceUpdateInput(
-                transactionRequest.getFromAccountId(),
+                fromAccountId,
                 transactionRequest.getToAccountId(),
                 transactionRequest.getTransactionType(),
                 transactionRequest.getAmount()
         );
     }
 
-    public AccountEntryInput convertTransactionRequestToEntryInput(TransactionRequest transactionRequest) {
+    public AccountEntryInput convertTransactionRequestToEntryInput(TransactionRequest transactionRequest, String fromAccountId) {
         return new AccountEntryInput(
-                transactionRequest.getFromAccountId(),
+                fromAccountId,
                 transactionRequest.getToAccountId(),
                 transactionRequest.getTransactionType(),
                 transactionRequest.getAmount()
