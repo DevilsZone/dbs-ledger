@@ -5,12 +5,14 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.dbs.ledger.enums.CurrencyName;
 import org.dbs.ledger.enums.TransactionType;
+import org.dbs.ledger.validations.annotations.ValidTransaction;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
+@ValidTransaction
 public class TransactionRequest {
     private String toAccountId;
 

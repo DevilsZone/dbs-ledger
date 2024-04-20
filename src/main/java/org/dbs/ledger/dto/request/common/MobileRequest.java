@@ -1,7 +1,9 @@
 package org.dbs.ledger.dto.request.common;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.dbs.ledger.validations.annotations.CountryCode;
+import org.dbs.ledger.validations.annotations.MobileNumber;
 
 @Getter
 @Setter
@@ -9,9 +11,11 @@ import lombok.*;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 public class MobileRequest {
-    @NotBlank
+    @NotNull
+    @CountryCode
     private String countryCode;
 
-    @NotBlank
+    @NotNull
+    @MobileNumber
     private String mobileNumber;
 }

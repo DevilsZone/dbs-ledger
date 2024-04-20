@@ -25,5 +25,21 @@ public final class MessageConstants {
 
     public static final String BEARER_AUTH = "bearerAuth";
 
+    public static final int PASSWORD_MIN_LENGTH = 8;
+
+    public static final int PASSWORD_MAX_LENGTH = 100;
+
+    public static final String PASSWORD_MUST_HAVE_AT_LEAST_ONE_LOWER_CASE_CHARACTER = "must have at least one lower case character";
+
+    public static final String PASSWORD_MUST_HAVE_AT_LEAST_ONE_UPPER_CASE_CHARACTER = "must have at least one upper case character";
+
+    public static final String PASSWORD_MUST_HAVE_AT_LEAST_ONE_DIGIT = "must have at least one digit";
+
+    public static final String PASSWORD_MUST_HAVE_AT_LEAST_ONE_SPECIAL_CHARACTER = "must have at least one special character";
+
+    public static final String PASSWORD_MUST_BE_OF_MINIMUM_LENGTH = "must be of minimum %d length";
+
+    public static final String PASSWORD_MUST_BE_OF_MAXIMUM_LENGTH = "must be of maximum %d length";
+
     private MessageConstants() {}
 }
