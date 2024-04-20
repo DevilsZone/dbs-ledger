@@ -6,18 +6,24 @@ import org.dbs.ledger.annotation.Transformer;
 import org.dbs.ledger.dto.request.SignupRequest;
 import org.dbs.ledger.dto.request.common.EmailRequest;
 import org.dbs.ledger.dto.request.common.MobileRequest;
+import org.dbs.ledger.dto.response.AccountDetailedResponse;
+import org.dbs.ledger.dto.response.AccountEntryResponse;
 import org.dbs.ledger.dto.response.AccountResponse;
 import org.dbs.ledger.dto.response.SignInResponse;
 import org.dbs.ledger.dto.response.common.EmailResponse;
 import org.dbs.ledger.dto.response.common.MobileResponse;
 import org.dbs.ledger.enums.AccountBalanceOutputStatus;
 import org.dbs.ledger.model.Account;
+import org.dbs.ledger.model.AccountEntry;
 import org.dbs.ledger.model.Currency;
 import org.dbs.ledger.model.common.Email;
 import org.dbs.ledger.model.common.Mobile;
 import org.dbs.ledger.model.output.AccountBalance;
 import org.dbs.ledger.model.output.AccountBalanceOutput;
+import org.dbs.ledger.util.StreamUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 @Transformer
 public class AccountTransformer {
@@ -88,5 +94,24 @@ public class AccountTransformer {
 
     public void updateAccountBalance(Account account, Integer balanceToAdd) {
         account.setAccountBalance(account.getAccountBalance() + balanceToAdd);
+    }
+
+    public AccountDetailedResponse convertModelToDetailedResponse(Account account, Currency currency, List<AccountEntry> accountEntryList) {
+        return AccountDetailedResponse
+                .builder()
+                .accountId(account.getId())
+                .name(account.getName())
+                .accountBalance(account.getAccountBalance().doubleValue()/currency.getDecimalPlaces())
+                .accountEntries(StreamUtils.emptyIfNull(accountEntryList).map(accountEntry -> convertAccountEntryToDetail(accountEntry, currency)).toList())
+                .build();
+    }
+
+    private AccountEntryResponse convertAccountEntryToDetail(AccountEntry accountEntry, Currency currency) {
+        return AccountEntryResponse
+                .builder()
+                .toAccountId(accountEntry.getToAccountId())
+                .transferType(accountEntry.getTransferType())
+                .transferredAmount(accountEntry.getAbsoluteTransferredFunds().doubleValue()/currency.getDecimalPlaces())
+                .build();
     }
 }

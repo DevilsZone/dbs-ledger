@@ -52,4 +52,9 @@ public class AccountEntryHelperImpl implements AccountEntryHelper {
             return AccountEntryOutput.createFailedEntryAccountOutput();
         }
     }
+
+    @Override
+    public List<AccountEntry> getAllAccountEntriesForAccountId(String accountId) {
+        return accountEntryRepository.findAccountEntriesByFromAccountIdAndStatus(accountId, Status.ACTIVE);
+    }
 }
