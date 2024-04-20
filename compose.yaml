@@ -3,6 +3,7 @@ version: '3.8'  # Ensuring compatibility with newer Docker features
 services:
   mongodb:
     image: 'mongo:latest'
+    command: ["mongod", "--replSet", "rs0"]
     environment:
       - MONGO_INITDB_DATABASE=ledger
       - MONGO_INITDB_ROOT_PASSWORD=root
