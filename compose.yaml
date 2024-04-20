@@ -1,9 +1,41 @@
+version: '3.8'  # Ensuring compatibility with newer Docker features
+
 services:
   mongodb:
     image: 'mongo:latest'
     environment:
-      - 'MONGO_INITDB_DATABASE=mydatabase'
-      - 'MONGO_INITDB_ROOT_PASSWORD=secret'
-      - 'MONGO_INITDB_ROOT_USERNAME=root'
+      - MONGO_INITDB_DATABASE=ledger
+      - MONGO_INITDB_ROOT_PASSWORD=secret
+      - MONGO_INITDB_ROOT_USERNAME=root
     ports:
-      - '27017'
+      - '27017:27017'
+    volumes:
+      - mongodb_data:/data/db  # Persisting MongoDB data
+
+  mysql:
+    image: 'mysql:latest'
+    environment:
+      - MYSQL_DATABASE=accounts
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=secret
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql_data:/var/lib/mysql  # Persisting MySQL data
+    restart: always
+
+  app_service:
+    image: 'your_app_image'  # Replace with your actual app Docker image
+    depends_on:
+      - mongodb
+      - mysql
+    environment:
+      - DATABASE_URL=mongodb://root:secret@mongodb:27017/ledger
+      - MYSQL_DB_URL=mysql://user:secret@mysql:3306/accounts
+    ports:
+      - '8080:8080'  # Assuming your app runs on port 8080
+
+volumes:
+  mongodb_data:
+  mysql_data:
