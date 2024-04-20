@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Setter
 @SuperBuilder
 @Document(MongoConstants.USER_TABLE_NAME)
-public class User {
+public class User extends BaseEntity {
     private String name;
 
     private String profileUrl;
