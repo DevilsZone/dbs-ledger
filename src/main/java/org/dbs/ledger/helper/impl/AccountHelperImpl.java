@@ -53,13 +53,4 @@ public class AccountHelperImpl implements AccountHelper {
         return accountTransformer.convertAccountToOutput(updatedAccount);
     }
 
-    @Override
-    public AccountBalanceOutput getAccountBalance(String accountId) {
-        Optional<Account> optionalAccount = accountRepository.findAccountByIdAndStatus(accountId, Status.ACTIVE);
-        if (optionalAccount.isEmpty()) {
-            return AccountBalanceOutput.createFailedAccount(AccountBalanceOutputStatus.FAILED);
-        }
-        Account account = optionalAccount.get();
-        return accountTransformer.convertAccountToOutput(account);
-    }
 }

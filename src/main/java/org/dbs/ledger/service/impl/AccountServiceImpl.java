@@ -71,7 +71,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AccountResponse getAccount(String id) {
         Account account = accountRepository.findAccountByIdAndStatus(id, Status.ACTIVE).orElseThrow(
-                () -> new RestException(HttpStatus.NOT_FOUND, ErrorResponse.from(ErrorCode.USER_NOT_FOUND))
+                () -> new RestException(HttpStatus.NOT_FOUND, ErrorResponse.from(ErrorCode.ACCOUNT_NOT_FOUND))
         );
         Currency currency = currencyHelper.getCurrencyByName(account.getCurrencyName()).orElseThrow(
                 () -> new RestException(HttpStatus.NOT_FOUND, ErrorResponse.from(ErrorCode.CURRENCY_NOT_ACTIVE))
@@ -91,7 +91,7 @@ public class AccountServiceImpl implements AccountService {
             Account createdAccount = accountRepository.save(account);
             return accountTransformer.convertModelToResponse(createdAccount, currency);
         } catch (DuplicateKeyException duplicateKeyException) {
-            throw new RestException(HttpStatus.BAD_REQUEST, ErrorResponse.from(ErrorCode.USER_ALREADY_EXIST));
+            throw new RestException(HttpStatus.BAD_REQUEST, ErrorResponse.from(ErrorCode.ACCOUNT_ALREADY_EXIST));
         }
     }
 }

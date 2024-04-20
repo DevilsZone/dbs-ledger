@@ -13,11 +13,10 @@ public enum ErrorCode {
     INVALID_JWT_TOKEN("003", "Invalid JWT token provided"),
     JWT_TOKEN_EXPIRED("004", "JWT token expired"),
     TOKEN_MUST_START_WITH_BEARER("005", "Token must start with Bearer"),
-    ACCOUNT_NOT_FOUND("006", "Account not found for user"),
     BALANCE_NOT_AVAILABLE("007", "Required Balance Not Available"),
     TRANSFER_FAILED("008", "Account entry creation failed"),
-    USER_NOT_FOUND("009", "User not found"),
-    USER_ALREADY_EXIST("010", "User already exists"),
+    ACCOUNT_NOT_FOUND("009", "Account not found"),
+    ACCOUNT_ALREADY_EXIST("010", "Account already exists"),
     INVALID_CREDENTIALS("011", "Invalid Credentials"),
     CURRENCY_NOT_ACTIVE("012", "Currency transaction has been disabled");
 

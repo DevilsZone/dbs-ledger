@@ -6,5 +6,4 @@ import org.dbs.ledger.model.output.AccountBalanceOutput;
 public interface AccountHelper {
     AccountBalanceOutput updateAccountBalance(AccountBalanceUpdateInput accountBalanceUpdateInput);
 
-    AccountBalanceOutput getAccountBalance(String accountId);
 }
