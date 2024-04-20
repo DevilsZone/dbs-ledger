@@ -15,5 +15,5 @@ public interface AccountRepository extends MongoRepository<Account, String> {
 
     Optional<Account> findAccountByMobileAndStatus(Mobile mobile, Status status);
 
-    Optional<Account> findAccountByIdAndStatus(String accountId, Status status);
+    Optional<Account> findAccountByIdAndStatus(String id, Status status);
 }

@@ -33,8 +33,10 @@ public class AccountHelperImpl implements AccountHelper {
             return AccountBalanceOutput.createFailedAccount(AccountBalanceOutputStatus.FAILED);
         }
         Account fromAccount = optionalFromAccount.get();
-        if (fromAccount.getAccountBalance() < accountBalanceUpdateInput.transferredAmount()) {
-            return AccountBalanceOutput.createFailedAccount(AccountBalanceOutputStatus.IN_VALID);
+        if (!accountBalanceUpdateInput.transactionType().equals(TransactionType.DEPOSIT)) {
+            if (fromAccount.getAccountBalance() < accountBalanceUpdateInput.transferredAmount()) {
+                return AccountBalanceOutput.createFailedAccount(AccountBalanceOutputStatus.IN_VALID);
+            }
         }
         accountTransformer.updateAccountBalance(fromAccount, accountBalanceUpdateInput.transferredAmount());
 
