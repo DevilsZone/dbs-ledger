@@ -31,6 +31,7 @@ dependencies {
 	implementation("com.auth0:java-jwt:4.4.0")
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0")
 	implementation("io.mongock:mongock-springboot-v3:5.3.4")
+	implementation("io.mongock:mongodb-springdata-v4-driver:5.3.4")
 	compileOnly("org.projectlombok:lombok")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	developmentOnly("org.springframework.boot:spring-boot-docker-compose")

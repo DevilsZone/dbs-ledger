@@ -5,6 +5,7 @@ import io.mongock.api.annotations.Execution;
 import org.bson.Document;
 import org.dbs.ledger.enums.CurrencyName;
 import org.dbs.ledger.enums.Status;
+import org.dbs.ledger.util.MongoConstants;
 import org.springframework.data.mongodb.core.BulkOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
@@ -26,11 +27,11 @@ public class Currency001Migration {
 
     @Execution
     public void executeMigration() {
-        List<Document> featureAccessControls = Arrays.stream(CurrencyName.values()).map(
+        List<Document> documents = Arrays.stream(CurrencyName.values()).map(
                 currencyName -> createCurrencyDocument(currencyName, 100)
         ).toList();
-        mongoTemplate.bulkOps(BulkOperations.BulkMode.ORDERED, "featureAccessControl")
-                .insert(featureAccessControls)
+        mongoTemplate.bulkOps(BulkOperations.BulkMode.ORDERED, MongoConstants.CURRENCY_TABLE_NAME)
+                .insert(documents)
                 .execute();
     }
 
