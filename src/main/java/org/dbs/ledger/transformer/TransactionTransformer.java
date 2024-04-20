@@ -3,7 +3,6 @@ package org.dbs.ledger.transformer;
 import org.dbs.ledger.annotation.Transformer;
 import org.dbs.ledger.dto.request.TransactionRequest;
 import org.dbs.ledger.dto.response.TransactionResponse;
-import org.dbs.ledger.enums.TransactionStatus;
 import org.dbs.ledger.model.input.AccountBalanceUpdateInput;
 import org.dbs.ledger.model.input.AccountEntryInput;
 import org.dbs.ledger.model.output.AccountBalanceOutput;
@@ -29,12 +28,11 @@ public class TransactionTransformer {
         );
     }
 
-    public TransactionResponse convertAccountBalanceAndEntryToResponse(AccountBalanceOutput accountBalanceOutput, AccountEntryOutput accountEntry, TransactionStatus transactionStatus) {
+    public TransactionResponse convertAccountBalanceAndEntryToResponse(AccountBalanceOutput accountBalanceOutput, AccountEntryOutput accountEntry) {
         return TransactionResponse
                 .builder()
                 .accountId(accountBalanceOutput.accountBalance().accountId())
                 .transactionId(accountEntry.accountEntryId())
-                .transactionStatus(transactionStatus)
                 .availableBalance(accountBalanceOutput.accountBalance().availableBalance())
                 .build();
     }

@@ -1,7 +1,6 @@
 package org.dbs.ledger.dto.response;
 
 import lombok.*;
-import org.dbs.ledger.enums.TransactionStatus;
 import org.dbs.ledger.enums.TransactionType;
 
 @Getter
@@ -13,8 +12,6 @@ public class TransactionResponse {
     private String transactionId;
 
     private TransactionType transactionType;
-
-    private TransactionStatus transactionStatus;
 
     private String accountId;
 

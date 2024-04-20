@@ -4,5 +4,5 @@ import org.dbs.ledger.dto.request.TransactionRequest;
 import org.dbs.ledger.dto.response.TransactionResponse;
 
 public interface TransactionService {
-    TransactionResponse transferFunds(TransactionRequest transactionRequest);
+    TransactionResponse createTransaction(TransactionRequest transactionRequest);
 }

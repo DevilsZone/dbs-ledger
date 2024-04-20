@@ -6,7 +6,6 @@ import org.dbs.ledger.dto.response.wrapper.ErrorResponse;
 import org.dbs.ledger.enums.AccountBalanceOutputStatus;
 import org.dbs.ledger.enums.AccountEntryOutputStatus;
 import org.dbs.ledger.enums.ErrorCode;
-import org.dbs.ledger.enums.TransactionStatus;
 import org.dbs.ledger.exceptions.RestException;
 import org.dbs.ledger.helper.AccountEntryHelper;
 import org.dbs.ledger.helper.AccountHelper;
@@ -36,7 +35,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     @Transactional
-    public TransactionResponse transferFunds(TransactionRequest transactionRequest) {
+    public TransactionResponse createTransaction(TransactionRequest transactionRequest) {
         AccountBalanceOutput accountBalanceOutput = accountHelper.updateAccountBalance(transactionTransformer.convertTransactionRequestToAccountInput(transactionRequest));
         if (!accountBalanceOutput.accountBalanceOutputStatus().equals(AccountBalanceOutputStatus.SUCCESS)) {
             throw new RestException(HttpStatus.INTERNAL_SERVER_ERROR, ErrorResponse.from(ErrorCode.INTERNAL_SERVER_ERROR));
@@ -48,6 +47,6 @@ public class TransactionServiceImpl implements TransactionService {
         }
 
 
-        return transactionTransformer.convertAccountBalanceAndEntryToResponse(accountBalanceOutput, accountEntry, TransactionStatus.SUCCESS);
+        return transactionTransformer.convertAccountBalanceAndEntryToResponse(accountBalanceOutput, accountEntry);
     }
 }

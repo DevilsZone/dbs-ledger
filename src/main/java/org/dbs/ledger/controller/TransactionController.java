@@ -26,7 +26,7 @@ public class TransactionController {
     public ResponseEntity<ResponseWrapper<TransactionResponse>> performTransaction(
             @RequestBody @Valid TransactionRequest transactionRequest
     ) {
-        TransactionResponse transactionResponse = transactionService.transferFunds(transactionRequest);
+        TransactionResponse transactionResponse = transactionService.createTransaction(transactionRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(ResponseWrapper.success(transactionResponse));
     }
 }
