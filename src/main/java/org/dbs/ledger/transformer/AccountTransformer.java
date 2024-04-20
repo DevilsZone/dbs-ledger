@@ -49,7 +49,7 @@ public class AccountTransformer {
                 .build();
     }
 
-    public JwtPayload convertUserToJwtPayload(Account account) {
+    public JwtPayload convertAccountToJwtPayload(Account account) {
         return JwtPayload.builder().sub(account.getId()).build();
     }
 
@@ -68,7 +68,7 @@ public class AccountTransformer {
     public AccountResponse convertModelToResponse(Account account, Currency currency) {
         return AccountResponse
                 .builder()
-                .userId(account.getId())
+                .accountId(account.getId())
                 .email(convertEmailToResponse(account.getEmail()))
                 .mobile(convertMobileToResponse(account.getMobile()))
                 .name(account.getName())

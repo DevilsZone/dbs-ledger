@@ -10,7 +10,7 @@ import org.dbs.ledger.dto.response.common.MobileResponse;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 public class AccountResponse {
-    private String userId;
+    private String accountId;
 
     private String name;
 

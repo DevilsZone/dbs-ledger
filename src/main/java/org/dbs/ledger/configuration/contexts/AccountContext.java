@@ -7,8 +7,8 @@ import org.springframework.web.context.annotation.RequestScope;
 @RequestScope
 @Getter
 @Setter
-public class UserContext {
+public class AccountContext {
     private String token;
 
-    private String userId;
+    private String accountId;
 }

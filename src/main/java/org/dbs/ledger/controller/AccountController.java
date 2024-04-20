@@ -1,10 +1,10 @@
 package org.dbs.ledger.controller;
 
 import jakarta.validation.Valid;
-import org.dbs.ledger.configuration.contexts.UserContext;
+import org.dbs.ledger.configuration.contexts.AccountContext;
 import org.dbs.ledger.dto.request.SignupRequest;
-import org.dbs.ledger.dto.request.user.EmailSignInRequest;
-import org.dbs.ledger.dto.request.user.MobileSignInRequest;
+import org.dbs.ledger.dto.request.account.EmailSignInRequest;
+import org.dbs.ledger.dto.request.account.MobileSignInRequest;
 import org.dbs.ledger.dto.response.SignInResponse;
 import org.dbs.ledger.dto.response.AccountResponse;
 import org.dbs.ledger.dto.response.wrapper.ResponseWrapper;
@@ -20,17 +20,17 @@ public class AccountController {
 
     private final AccountService accountService;
 
-    private final UserContext userContext;
+    private final AccountContext accountContext;
 
     @Autowired
-    public AccountController(AccountService accountService, UserContext userContext) {
+    public AccountController(AccountService accountService, AccountContext accountContext) {
         this.accountService = accountService;
-        this.userContext = userContext;
+        this.accountContext = accountContext;
     }
 
     @GetMapping
     public ResponseEntity<ResponseWrapper<AccountResponse>> getAccount() {
-        AccountResponse accountResponse = accountService.getAccount(userContext.getUserId());
+        AccountResponse accountResponse = accountService.getAccount(accountContext.getAccountId());
         return ResponseEntity.status(HttpStatus.OK).body(ResponseWrapper.success(accountResponse));
     }
 

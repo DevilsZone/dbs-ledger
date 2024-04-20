@@ -13,7 +13,7 @@ import managers.jwt.configurations.JwtManagerConfiguration;
 import managers.jwt.impl.JwtAccessTokenManager;
 import managers.jwt.impl.RsaAccessTokenAlgorithmImpl;
 import org.dbs.ledger.configuration.contexts.RequestContext;
-import org.dbs.ledger.configuration.contexts.UserContext;
+import org.dbs.ledger.configuration.contexts.AccountContext;
 import org.dbs.ledger.transformer.JwtTransformer;
 import org.dbs.ledger.util.MessageConstants;
 import org.springframework.context.annotation.Bean;
@@ -50,8 +50,8 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    public UserContext getUserContext() {
-        return new UserContext();
+    public AccountContext getAccountContext() {
+        return new AccountContext();
     }
 
     @Bean

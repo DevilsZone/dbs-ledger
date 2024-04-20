@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
 import managers.jwt.impl.JwtAccessTokenManager;
 import managers.jwt.models.JwtPayload;
-import org.dbs.ledger.configuration.contexts.UserContext;
+import org.dbs.ledger.configuration.contexts.AccountContext;
 import org.dbs.ledger.util.CommonUtils;
 import org.dbs.ledger.util.MessageConstants;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,14 +23,14 @@ import java.util.List;
 public class JwtFilter extends OncePerRequestFilter {
     private final JwtAccessTokenManager jwtAuthenticationManager;
 
-    private final UserContext userContext;
+    private final AccountContext accountContext;
 
     public JwtFilter(
             JwtAccessTokenManager jwtAuthenticationManager,
-            UserContext userContext
+            AccountContext accountContext
     ) {
         this.jwtAuthenticationManager = jwtAuthenticationManager;
-        this.userContext = userContext;
+        this.accountContext = accountContext;
     }
 
     @Override
@@ -44,7 +44,7 @@ public class JwtFilter extends OncePerRequestFilter {
             if (authorizationHeader != null && (CommonUtils.isBearerToken(authorizationHeader))) {
                 String token = authorizationHeader.substring(MessageConstants.BEARER_SPACE.length());
                 JwtPayload jwtPayload = jwtAuthenticationManager.verifyAndDecodeToken(token);
-                setupUserContext(userContext, jwtPayload, token);
+                setupAccountContext(accountContext, jwtPayload, token);
                 List<SimpleGrantedAuthority> grantedAuthorities = List.of();
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                         jwtPayload.getSub(), null, grantedAuthorities
@@ -57,9 +57,9 @@ public class JwtFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private void setupUserContext(UserContext userContext, JwtPayload jwtPayload, String token) {
-        userContext.setToken(token);
-        userContext.setUserId(jwtPayload.getSub());
+    private void setupAccountContext(AccountContext accountContext, JwtPayload jwtPayload, String token) {
+        accountContext.setToken(token);
+        accountContext.setAccountId(jwtPayload.getSub());
     }
 
 }

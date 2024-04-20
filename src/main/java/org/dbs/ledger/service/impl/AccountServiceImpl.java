@@ -3,8 +3,8 @@ package org.dbs.ledger.service.impl;
 import managers.jwt.impl.JwtAccessTokenManager;
 import managers.jwt.models.JwtToken;
 import org.dbs.ledger.dto.request.SignupRequest;
-import org.dbs.ledger.dto.request.user.EmailSignInRequest;
-import org.dbs.ledger.dto.request.user.MobileSignInRequest;
+import org.dbs.ledger.dto.request.account.EmailSignInRequest;
+import org.dbs.ledger.dto.request.account.MobileSignInRequest;
 import org.dbs.ledger.dto.response.AccountResponse;
 import org.dbs.ledger.dto.response.SignInResponse;
 import org.dbs.ledger.dto.response.wrapper.ErrorResponse;
@@ -52,7 +52,7 @@ public class AccountServiceImpl implements AccountService {
         if (!account.getPassword().equals(mobileSignInRequest.getPassword())) {
             throw new RestException(HttpStatus.UNAUTHORIZED, ErrorResponse.from(ErrorCode.INVALID_CREDENTIALS));
         }
-        JwtToken token = jwtAccessTokenManager.createToken(accountTransformer.convertUserToJwtPayload(account));
+        JwtToken token = jwtAccessTokenManager.createToken(accountTransformer.convertAccountToJwtPayload(account));
         return accountTransformer.convertTokenToSignInResponse(token);
     }
 
@@ -64,13 +64,13 @@ public class AccountServiceImpl implements AccountService {
         if (!account.getPassword().equals(emailSignInRequest.getPassword())) {
             throw new RestException(HttpStatus.UNAUTHORIZED, ErrorResponse.from(ErrorCode.INVALID_CREDENTIALS));
         }
-        JwtToken token = jwtAccessTokenManager.createToken(accountTransformer.convertUserToJwtPayload(account));
+        JwtToken token = jwtAccessTokenManager.createToken(accountTransformer.convertAccountToJwtPayload(account));
         return accountTransformer.convertTokenToSignInResponse(token);
     }
 
     @Override
-    public AccountResponse getAccount(String id) {
-        Account account = accountRepository.findAccountByIdAndStatus(id, Status.ACTIVE).orElseThrow(
+    public AccountResponse getAccount(String accountId) {
+        Account account = accountRepository.findAccountByIdAndStatus(accountId, Status.ACTIVE).orElseThrow(
                 () -> new RestException(HttpStatus.NOT_FOUND, ErrorResponse.from(ErrorCode.ACCOUNT_NOT_FOUND))
         );
         Currency currency = currencyHelper.getCurrencyByName(account.getCurrencyName()).orElseThrow(
