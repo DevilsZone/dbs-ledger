@@ -16,7 +16,6 @@ public class TransactionRequest {
     @NotBlank
     private String fromAccountId;
 
-    @NotBlank
     private String toAccountId;
 
     @Min(1)
