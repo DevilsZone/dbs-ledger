@@ -91,7 +91,7 @@ public class AccountServiceImpl implements AccountService {
     public AccountResponse signupAccount(SignupRequest signupRequest) {
         Account account = accountTransformer.convertSignupRequestToModel(signupRequest);
         account.setId(idHelper.getNextId());
-        account.setStatus(Status.ACTIVE);
+        account.setStatus(Status.IN_ACTIVE);
         Currency currency = currencyHelper.getCurrencyByName(account.getCurrencyName()).orElseThrow(
                 () -> new RestException(HttpStatus.NOT_FOUND, ErrorResponse.from(ErrorCode.CURRENCY_NOT_ACTIVE))
         );

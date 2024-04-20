@@ -53,4 +53,10 @@ public class AccountHelperImpl implements AccountHelper {
         return accountTransformer.convertAccountToOutput(updatedAccount);
     }
 
+    @Override
+    public void activateAccount(Account account) {
+        account.setStatus(Status.ACTIVE);
+        accountRepository.save(account);
+    }
+
 }
