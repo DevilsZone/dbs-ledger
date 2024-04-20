@@ -52,6 +52,7 @@ public class AccountTransformer {
                 .email(convertEmailRequestToModel(signupRequest.getEmail()))
                 .mobile(convertMobileRequestToModel(signupRequest.getMobile()))
                 .password(signupRequest.getPassword())
+                .accountBalance(0)
                 .build();
     }
 
