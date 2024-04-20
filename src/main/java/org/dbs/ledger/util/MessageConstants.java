@@ -23,5 +23,7 @@ public final class MessageConstants {
 
     public static final String BEARER_SPACE = "Bearer ";
 
+    public static final String BEARER_AUTH = "bearerAuth";
+
     private MessageConstants() {}
 }

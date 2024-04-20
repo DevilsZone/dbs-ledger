@@ -44,7 +44,7 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain getSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
         List<String> permittedRoutes = List.of(
-                "/users/signup",
+                "/users/sign-up",
                 "/users/mobile/sign-in",
                 "/users/email/sign-in"
         );
