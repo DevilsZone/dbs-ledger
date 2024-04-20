@@ -28,6 +28,7 @@ public class AccountHelperImpl implements AccountHelper {
 
     @Override
     public AccountBalanceOutput updateAccountBalance(AccountBalanceUpdateInput accountBalanceUpdateInput) {
+        // TODO: Fix the issue in Account Amount update
         Optional<Account> optionalFromAccount = accountRepository.findAccountByIdAndStatus(accountBalanceUpdateInput.fromAccountId(), Status.ACTIVE);
         if (optionalFromAccount.isEmpty()) {
             return AccountBalanceOutput.createFailedAccount(AccountBalanceOutputStatus.FAILED);
