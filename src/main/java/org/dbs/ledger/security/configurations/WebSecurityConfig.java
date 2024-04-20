@@ -33,7 +33,7 @@ public class WebSecurityConfig {
             JwtFilter jwtFilter,
             AuthenticationExceptionHandler authenticationExceptionHandler,
             AccessDeniedExceptionHandler accessDeniedExceptionHandler,
-            @Value("${app.grayfrost.security.permittedRoutes:}") List<String> defaultPermittedRoutes
+            @Value("${dbs.jwt.configuration.permittedRoutes:}") List<String> defaultPermittedRoutes
     ) {
         this.jwtFilter = jwtFilter;
         this.authenticationExceptionHandler = authenticationExceptionHandler;

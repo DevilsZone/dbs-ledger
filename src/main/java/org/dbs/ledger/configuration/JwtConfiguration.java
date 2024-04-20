@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConfigurationProperties(prefix = "app.grayfrost.jwt")
+@ConfigurationProperties(prefix = "dbs.jwt.configuration")
 @Getter
 @Setter
 @NoArgsConstructor
