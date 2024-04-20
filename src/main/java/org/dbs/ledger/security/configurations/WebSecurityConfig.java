@@ -45,7 +45,8 @@ public class WebSecurityConfig {
     public SecurityFilterChain getSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
         List<String> permittedRoutes = List.of(
                 "/users/signup",
-                "/users/sign-in"
+                "/users/mobile/sign-in",
+                "/users/email/sign-in"
         );
         String[] finalPermittedRoutes = Stream.concat(defaultPermittedRoutes.stream(), permittedRoutes.stream())
                 .toArray(String[]::new);

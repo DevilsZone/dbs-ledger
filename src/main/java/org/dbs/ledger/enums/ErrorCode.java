@@ -15,8 +15,10 @@ public enum ErrorCode {
     TOKEN_MUST_START_WITH_BEARER("005", "Token must start with Bearer"),
     ACCOUNT_NOT_FOUND("006", "Account not found for user"),
     BALANCE_NOT_AVAILABLE("007", "Required Balance Not Available"),
-    TRANSFER_FAILED("008", "Account entry creation failed")
-    ;
+    TRANSFER_FAILED("008", "Account entry creation failed"),
+    USER_NOT_FOUND("009", "User not found"),
+    USER_ALREADY_EXIST("010", "User already exists"),
+    INVALID_CREDENTIALS("011", "Invalid Credentials");
 
     private final String code;
 

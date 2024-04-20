@@ -20,4 +20,6 @@ public class User extends BaseEntity {
     private Email email;
 
     private Mobile mobile;
+
+    private String password;
 }
